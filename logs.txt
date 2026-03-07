@@ -1,0 +1,1 @@
+LogMessage(logLevel=ERROR, message=Using singleton Logger - Error message, timeStamp=1771183880868)
