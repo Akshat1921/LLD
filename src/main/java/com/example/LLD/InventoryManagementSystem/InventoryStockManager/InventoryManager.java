@@ -3,6 +3,7 @@ package com.example.LLD.InventoryManagementSystem.InventoryStockManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.LLD.InventoryManagementSystem.Enums.ProductCategory;
 import com.example.LLD.InventoryManagementSystem.ProductFactory.Product;
 import com.example.LLD.InventoryManagementSystem.ProductFactory.ProductFactory;
 import com.example.LLD.InventoryManagementSystem.ProductReplenishmentStrategy.ConcreteReplenishStrategies.ReplenishmentStrategy;
@@ -47,6 +48,21 @@ public class InventoryManager {
         warehouses.remove(warehouse);
     }
 
+    public Product createProduct(ProductCategory category, String sku, String name, double price,
+            int quantity, int threshold) {
+        return productFactory.createProduct(category, sku, name, price, quantity, threshold);
+    }
+
+    public void addStock(Warehouse warehouse, Product product, int quantity) {
+        ensureWarehouseIsManaged(warehouse);
+        warehouse.addProduct(product, quantity);
+    }
+
+    public boolean removeStock(Warehouse warehouse, String sku, int quantity) {
+        ensureWarehouseIsManaged(warehouse);
+        return warehouse.removeProduct(sku, quantity);
+    }
+
     // Product inventory operations
     public Product getProductBySku(String sku) {
         for (Warehouse warehouse : warehouses) {
@@ -82,4 +98,10 @@ public class InventoryManager {
             }
         }
     } 
+
+    private void ensureWarehouseIsManaged(Warehouse warehouse) {
+        if (!warehouses.contains(warehouse)) {
+            throw new IllegalArgumentException("Warehouse is not managed by InventoryManager");
+        }
+    }
 }

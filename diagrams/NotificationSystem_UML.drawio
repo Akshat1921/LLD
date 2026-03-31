@@ -1,0 +1,186 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Notification System" id="notification-system">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Models -->
+        <mxCell id="notification" value="Notification&#xa;---&#xa;- userId: String&#xa;- message: String&#xa;---&#xa;+ Notification(userId, message)&#xa;+ getUserId(): String&#xa;+ getMessage(): String" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="userPreference" value="UserPreference&#xa;---&#xa;- userId: String&#xa;- preferredChannel: Set&lt;ChannelType&gt;&#xa;---&#xa;+ UserPreference(userId, channels)&#xa;+ getUserId(): String&#xa;+ getPreferredChannel(): Set&lt;ChannelType&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="280" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Enum -->
+        <mxCell id="channelType" value="&lt;&lt;enum&gt;&gt;&#xa;ChannelType&#xa;---&#xa;EMAIL&#xa;SMS&#xa;PUSH" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="360" y="200" width="150" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Strategy Pattern - NotificationChannel Interface -->
+        <mxCell id="notificationChannel" value="&lt;&lt;interface&gt;&gt;&#xa;NotificationChannel&#xa;---&#xa;+ send(Notification): void&#xa;&#xa;⭐ Strategy Pattern" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="600" y="40" width="220" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Channel Implementations -->
+        <mxCell id="emailChannel" value="EmailNotificationChannel&#xa;---&#xa;+ send(Notification): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="480" y="200" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="smsChannel" value="SMSNotificationChannel&#xa;---&#xa;+ send(Notification): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="700" y="200" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="pushChannel" value="PushNotificationChannel&#xa;---&#xa;+ send(Notification): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="920" y="200" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Factory Pattern -->
+        <mxCell id="notificationFactory" value="NotificationFactory&#xa;---&#xa;+ getChannel(ChannelType): NotificationChannel&#xa;&#xa;⭐ Factory Pattern" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="600" y="340" width="280" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Services -->
+        <mxCell id="userPreferenceService" value="UserPreferenceService&#xa;---&#xa;- preferences: Map&lt;String, UserPreference&gt;&#xa;---&#xa;+ savePreference(UserPreference): void&#xa;+ getPreference(userId): UserPreference" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="40" y="360" width="280" height="110" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="notificationDispatcher" value="NotificationDispatcher&#xa;---&#xa;- preferenceService: UserPreferenceService&#xa;---&#xa;+ NotificationDispatcher(preferenceService)&#xa;+ dispatch(Notification): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="360" y="360" width="200" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- API Layer -->
+        <mxCell id="notificationService" value="NotificationService&#xa;---&#xa;- dispatcher: NotificationDispatcher&#xa;---&#xa;+ NotificationService(dispatcher)&#xa;+ sendNotification(Notification): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="240" height="110" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="asyncNotificationService" value="AsyncNotificationService&#xa;---&#xa;- dispatcher: NotificationDispatcher&#xa;- executorService: ExecutorService&#xa;---&#xa;+ AsyncNotificationService(dispatcher)&#xa;+ sendNotification(Notification): void&#xa;&#xa;⭐ Async Pattern" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#b1ddf0;strokeColor=#10739e;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="320" y="520" width="260" height="130" as="geometry" />
+        </mxCell>
+        
+        <!-- Relationships -->
+        <!-- Channel implementations implement interface -->
+        <mxCell id="edge1" edge="1" parent="1" source="emailChannel" target="notificationChannel">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="180" />
+              <mxPoint x="660" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow1" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="emailChannel" target="notificationChannel">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="180" />
+              <mxPoint x="660" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow2" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="smsChannel" target="notificationChannel">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="180" />
+              <mxPoint x="720" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="pushChannel" target="notificationChannel">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1020" y="180" />
+              <mxPoint x="780" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Factory creates channels -->
+        <mxCell id="arrow4" value="creates" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="notificationFactory" target="notificationChannel">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="740" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Dispatcher uses Factory -->
+        <mxCell id="arrow5" value="uses" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="notificationDispatcher" target="notificationFactory">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Dispatcher depends on UserPreferenceService -->
+        <mxCell id="arrow6" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="notificationDispatcher" target="userPreferenceService">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Services use Dispatcher -->
+        <mxCell id="arrow7" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="notificationService" target="notificationDispatcher">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="500" />
+              <mxPoint x="360" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow8" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="asyncNotificationService" target="notificationDispatcher">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- UserPreference uses ChannelType -->
+        <mxCell id="arrow9" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="userPreference" target="channelType">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- UserPreferenceService uses UserPreference -->
+        <mxCell id="arrow10" value="manages" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="userPreferenceService" target="userPreference">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Dispatcher uses Notification -->
+        <mxCell id="arrow11" value="processes" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="notificationDispatcher" target="notification">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="340" />
+              <mxPoint x="140" y="340" />
+              <mxPoint x="140" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Channel uses Notification -->
+        <mxCell id="arrow12" value="sends" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="notificationChannel" target="notification">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="90" />
+              <mxPoint x="240" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Design Patterns:&#xa;⭐ Strategy Pattern - Multiple notification channels&#xa;⭐ Factory Pattern - Channel creation&#xa;⭐ Dependency Injection - Constructor injection&#xa;⭐ Async Pattern - ExecutorService" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="640" y="520" width="320" height="110" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

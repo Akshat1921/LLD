@@ -3,7 +3,6 @@ package com.example.LLD.InventoryManagementSystem;
 import com.example.LLD.InventoryManagementSystem.Enums.ProductCategory;
 import com.example.LLD.InventoryManagementSystem.InventoryStockManager.InventoryManager;
 import com.example.LLD.InventoryManagementSystem.ProductFactory.Product;
-import com.example.LLD.InventoryManagementSystem.ProductFactory.ProductFactory;
 import com.example.LLD.InventoryManagementSystem.ProductReplenishmentStrategy.ConcreteReplenishStrategies.BulkOrderStrategy;
 import com.example.LLD.InventoryManagementSystem.ProductReplenishmentStrategy.ConcreteReplenishStrategies.JustInTimeStrategy;
 import com.example.LLD.InventoryManagementSystem.ProductReplenishmentStrategy.ConcreteReplenishStrategies.ReplenishmentStrategy;
@@ -21,19 +20,18 @@ public class Main {
         inventoryManager.addWarehouse(warehouse1);
         inventoryManager.addWarehouse(warehouse2);
 
-        // Create products using ProductFactory
-        ProductFactory productFactory = new ProductFactory();
-        Product laptop = productFactory.createProduct(
+        // Create products using InventoryManager
+        Product laptop = inventoryManager.createProduct(
                 ProductCategory.ELECTRONICS, "SKU123", "Laptop", 1000.0, 50, 25);
-        Product tShirt = productFactory.createProduct(
+        Product tShirt = inventoryManager.createProduct(
                 ProductCategory.CLOTHING, "SKU456", "T-Shirt", 20.0, 200, 100);
-        Product apple = productFactory.createProduct(
+        Product apple = inventoryManager.createProduct(
                 ProductCategory.GROCERY, "SKU789", "Apple", 1.0, 100, 200);
 
-        // Add products to warehouses
-        warehouse1.addProduct(laptop, 15);
-        warehouse1.addProduct(tShirt, 20);
-        warehouse2.addProduct(apple, 50);
+        // Add products to warehouses through InventoryManager
+        inventoryManager.addStock(warehouse1, laptop, 15);
+        inventoryManager.addStock(warehouse1, tShirt, 20);
+        inventoryManager.addStock(warehouse2, apple, 50);
 
         // Set replenishment strategy to Just-In-Time
         inventoryManager.setReplenishmentStrategy(new JustInTimeStrategy());

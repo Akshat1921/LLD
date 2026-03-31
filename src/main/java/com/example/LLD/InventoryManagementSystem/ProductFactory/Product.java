@@ -2,6 +2,9 @@ package com.example.LLD.InventoryManagementSystem.ProductFactory;
 
 import com.example.LLD.InventoryManagementSystem.Enums.ProductCategory;
 
+import lombok.Data;
+
+@Data
 public class Product {
     private String sku;
     private String name;
@@ -44,7 +47,7 @@ public class Product {
     }
 
     public int getThreshold() {
-        return quantity;
+        return threshold;
     }
 
     public void setThreshold(int threshold) {

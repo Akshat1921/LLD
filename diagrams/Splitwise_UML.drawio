@@ -1,0 +1,309 @@
+<mxfile host="app.diagrams.net" modified="2026-03-31T00:00:00.000Z" agent="GitHub Copilot" version="24.0.0" etag="Splitwise-UML" type="device">
+  <diagram id="Splitwise-System" name="Splitwise Class Diagram">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- User -->
+        <mxCell id="User" value="&lt;b&gt;User&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="260" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="User-attrs" value="- userId: String&#xa;- userName: String&#xa;- userExpenseBalanceSheet: UserExpenseBalanceSheet" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="User" vertex="1">
+          <mxGeometry y="30" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="User-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="User" vertex="1">
+          <mxGeometry y="85" width="260" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="User-methods" value="+ getters/setters" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="User" vertex="1">
+          <mxGeometry y="93" width="260" height="27" as="geometry" />
+        </mxCell>
+
+        <!-- UserExpenseBalanceSheet -->
+        <mxCell id="BalanceSheet" value="&lt;b&gt;UserExpenseBalanceSheet&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="360" y="40" width="280" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="BalanceSheet-attrs" value="- userVsBalance: Map&lt;String, Balance&gt;&#xa;- totalPayment: double&#xa;- totalYourExpense: double&#xa;- totalYouOwe: double&#xa;- totalYouGetBack: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="BalanceSheet" vertex="1">
+          <mxGeometry y="30" width="280" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="BalanceSheet-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="BalanceSheet" vertex="1">
+          <mxGeometry y="115" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="BalanceSheet-methods" value="+ getters/setters" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="BalanceSheet" vertex="1">
+          <mxGeometry y="123" width="280" height="27" as="geometry" />
+        </mxCell>
+
+        <!-- Balance -->
+        <mxCell id="Balance" value="&lt;b&gt;Balance&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="700" y="40" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Balance-attrs" value="- amountOwe: double&#xa;- amountGetBack: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Balance" vertex="1">
+          <mxGeometry y="30" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Balance-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="Balance" vertex="1">
+          <mxGeometry y="70" width="180" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Balance-methods" value="+ getters/setters" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Balance" vertex="1">
+          <mxGeometry y="78" width="180" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Group -->
+        <mxCell id="Group" value="&lt;b&gt;Group&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="40" y="230" width="340" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Group-attrs" value="- groupId: String&#xa;- groupName: String&#xa;- groupMembers: List&lt;User&gt;&#xa;- expenseList: List&lt;Expense&gt;&#xa;- expenseController: ExpenseController" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Group" vertex="1">
+          <mxGeometry y="30" width="340" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Group-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="Group" vertex="1">
+          <mxGeometry y="110" width="340" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Group-methods" value="+ addMember(User): void&#xa;+ createExpense(...): Expense" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Group" vertex="1">
+          <mxGeometry y="118" width="340" height="42" as="geometry" />
+        </mxCell>
+
+        <!-- Expense -->
+        <mxCell id="Expense" value="&lt;b&gt;Expense&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="440" y="230" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Expense-attrs" value="+ expenseId: String&#xa;+ description: String&#xa;+ expenseAmount: double&#xa;+ paidByUser: User&#xa;+ splitType: ExpenseSplitType&#xa;+ splitDetails: List&lt;Split&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Expense" vertex="1">
+          <mxGeometry y="30" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Expense-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="Expense" vertex="1">
+          <mxGeometry y="130" width="260" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Expense-methods" value="+ constructor(...)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Expense" vertex="1">
+          <mxGeometry y="138" width="260" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Split -->
+        <mxCell id="Split" value="&lt;b&gt;Split&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="750" y="230" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Split-attrs" value="- amountOwe: double&#xa;- user: User" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Split" vertex="1">
+          <mxGeometry y="30" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Split-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="Split" vertex="1">
+          <mxGeometry y="70" width="180" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Split-methods" value="+ getters/setters" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Split" vertex="1">
+          <mxGeometry y="78" width="180" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Enums -->
+        <mxCell id="ExpenseSplitType" value="&lt;&lt;enumeration&gt;&gt;&#xa;&lt;b&gt;ExpenseSplitType&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="980" y="230" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ExpenseSplitType-values" value="EQUAL&#xa;UNEQUAL&#xa;PERCENTAGE" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ExpenseSplitType" vertex="1">
+          <mxGeometry y="40" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Strategy Interface -->
+        <mxCell id="ExpenseSplitStrategy" value="&lt;&lt;interface&gt;&gt;&#xa;&lt;b&gt;ExpenseSplitStrategy&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="40" y="470" width="320" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="ExpenseSplitStrategy-methods" value="+ validateSplitRequest(List&lt;Split&gt;, double): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2" parent="ExpenseSplitStrategy" vertex="1">
+          <mxGeometry y="40" width="320" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Strategy Implementations -->
+        <mxCell id="EqualSplit" value="&lt;b&gt;EqualExpenseSplit&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="40" y="620" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="EqualSplit-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="EqualSplit" vertex="1">
+          <mxGeometry y="30" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="EqualSplit-methods" value="+ validateSplitRequest(...): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="EqualSplit" vertex="1">
+          <mxGeometry y="38" width="280" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="UnequalSplit" value="&lt;b&gt;UnequalExpenseSplit&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="360" y="620" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="UnequalSplit-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="UnequalSplit" vertex="1">
+          <mxGeometry y="30" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="UnequalSplit-methods" value="+ validateSplitRequest(...): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="UnequalSplit" vertex="1">
+          <mxGeometry y="38" width="280" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="PercentageSplit" value="&lt;b&gt;PercentageExpenseSplit&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="680" y="620" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="PercentageSplit-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="PercentageSplit" vertex="1">
+          <mxGeometry y="30" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="PercentageSplit-methods" value="+ validateSplitRequest(...): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PercentageSplit" vertex="1">
+          <mxGeometry y="38" width="280" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Controllers -->
+        <mxCell id="ExpenseController" value="&lt;b&gt;ExpenseController&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1050" y="470" width="380" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ExpenseController-attrs" value="- balanceSheetController: BalanceSheetController" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ExpenseController" vertex="1">
+          <mxGeometry y="30" width="380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ExpenseController-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ExpenseController" vertex="1">
+          <mxGeometry y="56" width="380" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ExpenseController-methods" value="+ createExpense(...): Expense" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ExpenseController" vertex="1">
+          <mxGeometry y="64" width="380" height="46" as="geometry" />
+        </mxCell>
+
+        <mxCell id="BalanceSheetController" value="&lt;b&gt;BalanceSheetController&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1050" y="620" width="410" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="BalanceSheetController-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="BalanceSheetController" vertex="1">
+          <mxGeometry y="30" width="410" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="BalanceSheetController-methods" value="+ updateUserExpenseBalanceSheet(User, List&lt;Split&gt;, double): void&#xa;+ showBalances(User): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="BalanceSheetController" vertex="1">
+          <mxGeometry y="38" width="410" height="52" as="geometry" />
+        </mxCell>
+
+        <mxCell id="UserController" value="&lt;b&gt;UserController&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1050" y="750" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="UserController-attrs" value="- users: Map&lt;String, User&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="UserController" vertex="1">
+          <mxGeometry y="30" width="300" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="UserController-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="UserController" vertex="1">
+          <mxGeometry y="56" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="UserController-methods" value="+ addUser(User): void&#xa;+ getUser(String): User" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="UserController" vertex="1">
+          <mxGeometry y="64" width="300" height="46" as="geometry" />
+        </mxCell>
+
+        <mxCell id="GroupController" value="&lt;b&gt;GroupController&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1050" y="900" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GroupController-attrs" value="- groups: Map&lt;String, Group&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="GroupController" vertex="1">
+          <mxGeometry y="30" width="300" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="GroupController-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="GroupController" vertex="1">
+          <mxGeometry y="56" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="GroupController-methods" value="+ addGroup(Group): void&#xa;+ getGroup(String): Group" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="GroupController" vertex="1">
+          <mxGeometry y="64" width="300" height="46" as="geometry" />
+        </mxCell>
+
+        <!-- Splitwise Singleton -->
+        <mxCell id="Splitwise" value="&lt;b&gt;Splitwise&lt;/b&gt;&#xa;&lt;&lt;Singleton&gt;&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=45;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="1500" y="470" width="280" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="Splitwise-attrs" value="- splitwiseInstance: Splitwise (static)&#xa;- groupController: GroupController&#xa;- balanceSheetController: BalanceSheetController&#xa;- userController: UserController" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Splitwise" vertex="1">
+          <mxGeometry y="45" width="280" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="Splitwise-line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="Splitwise" vertex="1">
+          <mxGeometry y="120" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Splitwise-methods" value="+ getInstance(): Splitwise (static)&#xa;- Splitwise() (private)&#xa;+ runSplitwiseDemo(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="Splitwise" vertex="1">
+          <mxGeometry y="128" width="280" height="52" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships -->
+        
+        <!-- User to BalanceSheet -->
+        <mxCell id="User-BalanceSheet-Link" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="User-attrs" target="BalanceSheet-attrs" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="300" y="100" as="sourcePoint" />
+            <mxPoint x="360" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- BalanceSheet to Balance -->
+        <mxCell id="BalanceSheet-Balance-Link" value="" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="BalanceSheet-attrs" target="Balance-attrs" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="640" y="100" as="sourcePoint" />
+            <mxPoint x="700" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Group to User -->
+        <mxCell id="Group-User-Link" value="" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" parent="1" source="Group-attrs" target="User" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="30" y="270" as="sourcePoint" />
+            <mxPoint x="30" y="170" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="20" y="280" />
+              <mxPoint x="20" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Group-User-Label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="20" y="200" width="40" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Group to Expense -->
+        <mxCell id="Group-Expense-Link" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Group-attrs" target="Expense-attrs" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="380" y="300" as="sourcePoint" />
+            <mxPoint x="440" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Group-Expense-Label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="280" width="40" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Expense to Split -->
+        <mxCell id="Expense-Split-Link" value="" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Expense-attrs" target="Split-attrs" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="700" y="280" as="sourcePoint" />
+            <mxPoint x="750" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Expense-Split-Label" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="710" y="270" width="40" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Strategy Implementations -->
+        <mxCell id="Equal-implements" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" parent="1" source="EqualSplit" target="ExpenseSplitStrategy" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="180" y="600" as="sourcePoint" />
+            <mxPoint x="120" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="Unequal-implements" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="UnequalSplit" target="ExpenseSplitStrategy" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="500" y="600" as="sourcePoint" />
+            <mxPoint x="200" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="Percentage-implements" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="PercentageSplit" target="ExpenseSplitStrategy" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="820" y="600" as="sourcePoint" />
+            <mxPoint x="280" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Splitwise to Controllers -->
+        <mxCell id="Splitwise-Controllers" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Splitwise-attrs" target="GroupController-attrs" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1480" y="800" as="sourcePoint" />
+            <mxPoint x="1360" y="940" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1480" y="553" />
+              <mxPoint x="1480" y="943" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="Legend-title" value="&lt;b&gt;Design Patterns:&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="40" y="750" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Legend-singleton" value="• Singleton: Splitwise" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="780" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Legend-strategy" value="• Strategy: ExpenseSplitStrategy" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="810" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Legend-controller" value="• MVC: Controllers manage domain" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="840" width="250" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

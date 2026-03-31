@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.example.LLD.InventoryManagementSystem.ProductFactory.Product;
 
+import lombok.Data;
+@Data
 public class Warehouse {
     private int id;
     private String name;

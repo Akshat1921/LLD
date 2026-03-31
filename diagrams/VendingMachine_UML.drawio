@@ -1,0 +1,184 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Vending Machine System" id="vending-machine-system">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Context -->
+        <mxCell id="vendingMachineContext" value="VendingMachineContext&#xa;---&#xa;- currentState: VendingMachineState&#xa;- inventory: Inventory&#xa;- selectedItemCode: int&#xa;- coinList: List&lt;Coin&gt;&#xa;---&#xa;+ VendingMachineContext()&#xa;+ advanceState(): void&#xa;+ clickOnInsertCoinButton(Coin): void&#xa;+ clickOnStartProductSelectionButton(code): void&#xa;+ selectProduct(code): void&#xa;+ dispenseItem(code): void&#xa;+ updateInventory(Item, code): void&#xa;+ getBalance(): int&#xa;+ resetBalance(): void&#xa;&#xa;⭐ Context (State Pattern)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="300" height="280" as="geometry" />
+        </mxCell>
+        
+        <!-- State Pattern -->
+        <mxCell id="vendingMachineState" value="&lt;&lt;interface&gt;&gt;&#xa;VendingMachineState&#xa;---&#xa;+ getStateName(): String&#xa;+ next(VendingMachineContext): VendingMachineState&#xa;&#xa;⭐ State Pattern" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="420" y="40" width="320" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- State Implementations -->
+        <mxCell id="idleState" value="IdleState&#xa;---&#xa;+ getStateName(): String&#xa;+ next(context): VendingMachineState&#xa;&#xa;Transitions to:&#xa;- HasMoneyState (if coins inserted)&#xa;- OutOfStockState (if no items)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="240" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="hasMoneyState" value="HasMoneyState&#xa;---&#xa;+ getStateName(): String&#xa;+ next(context): VendingMachineState&#xa;&#xa;Transitions to:&#xa;- SelectionState (on button press)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="310" y="380" width="220" height="110" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="selectionState" value="SelectionState&#xa;---&#xa;+ getStateName(): String&#xa;+ next(context): VendingMachineState&#xa;&#xa;Transitions to:&#xa;- DispenseState (product selected)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="560" y="380" width="220" height="110" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="dispenseState" value="DispenseState&#xa;---&#xa;+ getStateName(): String&#xa;+ next(context): VendingMachineState&#xa;&#xa;Dispenses product,&#xa;Transitions to: IdleState" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="810" y="380" width="200" height="110" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="outOfStockState" value="OutOfStockState&#xa;---&#xa;+ getStateName(): String&#xa;+ next(context): VendingMachineState&#xa;&#xa;Transitions to:&#xa;- IdleState (items restocked)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="380" width="210" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- Inventory System -->
+        <mxCell id="inventory" value="Inventory&#xa;---&#xa;- inventory: ItemShelf[]&#xa;---&#xa;+ Inventory(itemCount)&#xa;+ initializeInventory(): void&#xa;+ addItem(Item, code): void&#xa;+ getItem(code): Item&#xa;+ removeItem(code): void&#xa;+ updateSoldItem(code): void&#xa;+ hasItems(): boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="40" y="560" width="240" height="160" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="itemShelf" value="ItemShelf&#xa;---&#xa;- code: int&#xa;- items: List&lt;Item&gt;&#xa;- isSoldOut: boolean&#xa;---&#xa;+ ItemShelf(code)&#xa;+ addItem(Item): void&#xa;+ removeItem(Item): void&#xa;+ checkIsSoldOut(): boolean&#xa;+ setIsSoldOut(boolean): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="320" y="560" width="200" height="160" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="item" value="Item&#xa;---&#xa;- type: ItemType&#xa;- price: int&#xa;---&#xa;+ getType(): ItemType&#xa;+ getPrice(): int&#xa;+ setType(ItemType): void&#xa;+ setPrice(int): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="560" y="560" width="180" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Enums -->
+        <mxCell id="itemType" value="&lt;&lt;enum&gt;&gt;&#xa;ItemType&#xa;---&#xa;COKE&#xa;PEPSI&#xa;JUICE&#xa;SODA" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="780" y="560" width="120" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="coin" value="&lt;&lt;enum&gt;&gt;&#xa;Coin&#xa;---&#xa;ONE_RUPEE(1)&#xa;TWO_RUPEE(2)&#xa;FIVE_RUPEE(5)&#xa;TEN_RUPEE(10)&#xa;---&#xa;+ value: int" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="940" y="560" width="140" height="130" as="geometry" />
+        </mxCell>
+        
+        <!-- Relationships -->
+        <!-- Context has State -->
+        <mxCell id="arrow1" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="vendingMachineContext" target="vendingMachineState">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label1" value="has current" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="350" y="65" width="70" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Context has Inventory -->
+        <mxCell id="arrow2" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="vendingMachineContext" target="inventory">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label2" value="has" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="165" y="345" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- State implementations -->
+        <mxCell id="arrow3" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="idleState" target="vendingMachineState">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="350" />
+              <mxPoint x="480" y="350" />
+              <mxPoint x="480" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow4" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="hasMoneyState" target="vendingMachineState">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="350" />
+              <mxPoint x="520" y="350" />
+              <mxPoint name="520" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow5" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="selectionState" target="vendingMachineState">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="670" y="350" />
+              <mxPoint x="580" y="350" />
+              <mxPoint x="580" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow6" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="dispenseState" target="vendingMachineState">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="350" />
+              <mxPoint x="640" y="350" />
+              <mxPoint x="640" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow7" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="outOfStockState" target="vendingMachineState">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1145" y="350" />
+              <mxPoint x="700" y="350" />
+              <mxPoint x="700" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Inventory manages ItemShelf -->
+        <mxCell id="arrow8" value="manages" style="endArrow=open;endSize=12;" edge="1" parent="1" source="inventory" target="itemShelf">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- ItemShelf contains Item -->
+        <mxCell id="arrow9" value="contains" style="endArrow=open;endSize=12;" edge="1" parent="1" source="itemShelf" target="item">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Item uses ItemType -->
+        <mxCell id="arrow10" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="item" target="itemType">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="740" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Context uses Coin -->
+        <mxCell id="arrow11" value="uses" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="vendingMachineContext" target="coin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="180" />
+              <mxPoint x="800" y="180" />
+              <mxPoint x="800" y="540" />
+              <mxPoint x="1010" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Design Pattern:&#xa;⭐ State Pattern - Machine transitions through states&#xa;&#xa;State Flow:&#xa;IdleState → HasMoneyState → SelectionState → DispenseState → IdleState&#xa;↓&#xa;OutOfStockState (if inventory empty)&#xa;&#xa;Key Operations:&#xa;1. Insert Coin → HasMoneyState&#xa;2. Press Selection Button → SelectionState&#xa;3. Select Product (if balance sufficient) → DispenseState&#xa;4. Dispense → Remove item, return change, reset → IdleState&#xa;&#xa;Inventory:&#xa;- 10 ItemShelves (code 101-110)&#xa;- Each shelf holds multiple items of same type&#xa;- Track soldOut status per shelf" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="40" width="260" height="280" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

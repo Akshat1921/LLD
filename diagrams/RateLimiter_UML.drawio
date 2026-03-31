@@ -1,0 +1,186 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Rate Limiter System" id="rate-limiter-system">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Models -->
+        <mxCell id="rateLimitConfig" value="RateLimitConfig&#xa;---&#xa;- maxRequests: int&#xa;- windowsInSeconds: int&#xa;---&#xa;+ RateLimitConfig(max, window)&#xa;+ getMaxRequests(): int&#xa;+ getWindowsInSeconds(): int" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="220" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user" value="User&#xa;---&#xa;- userId: String&#xa;- tier: UserTier&#xa;---&#xa;+ User(userId, tier)&#xa;+ getUserId(): String&#xa;+ getTier(): UserTier" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="300" y="40" width="180" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Enums -->
+        <mxCell id="rateLimitType" value="&lt;&lt;enum&gt;&gt;&#xa;RateLimitType&#xa;---&#xa;TOKEN_BUCKET&#xa;LEAKY_BUCKET&#xa;FIXED_WINDOW&#xa;SLIDING_WINDOW_LOG&#xa;SLIDING_WINDOW_COUNTER" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="userTier" value="&lt;&lt;enum&gt;&gt;&#xa;UserTier&#xa;---&#xa;FREE&#xa;PREMIUM" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="760" y="40" width="140" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Strategy Pattern - RateLimiter -->
+        <mxCell id="rateLimiter" value="&lt;&lt;abstract&gt;&gt;&#xa;RateLimiter&#xa;---&#xa;# config: RateLimitConfig&#xa;# type: RateLimitType&#xa;---&#xa;+ RateLimiter(config, type)&#xa;+ allowRequest(userId): boolean&#xa;&#xa;⭐ Strategy Pattern (Template)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="260" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Strategy Implementations -->
+        <mxCell id="tokenBucket" value="TokenBucketRateLimiter&#xa;---&#xa;- tokens: Map&lt;String, Integer&gt;&#xa;- lastRefillTime: Map&lt;String, Long&gt;&#xa;---&#xa;+ allowRequest(userId): boolean&#xa;+ refillTokens(id, now): int&#xa;&#xa;Adds tokens over time" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="420" width="240" height="130" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="fixedWindow" value="FixedWindowRateLimiter&#xa;---&#xa;- requestCount: Map&lt;String, Integer&gt;&#xa;- windowStart: Map&lt;String, Long&gt;&#xa;---&#xa;+ allowRequest(userId): boolean&#xa;&#xa;Fixed time windows, resets counter" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="320" y="420" width="260" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="leakyBucket" value="LeakyBucketRateLimiter&#xa;---&#xa;- buckets: Map&lt;String, Bucket&gt;&#xa;- leakRate: long&#xa;- Bucket: { currentWater, lastLeakTimestamp }&#xa;---&#xa;+ allowRequest(userId): boolean&#xa;- leak(Bucket): void&#xa;&#xa;Leaks at constant rate" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="620" y="420" width="280" height="130" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="slidingWindowLog" value="SlidingWindowLogRateLimiter&#xa;---&#xa;- requestLog: Map&lt;String, Queue&lt;Long&gt;&gt;&#xa;---&#xa;+ allowRequest(userId): boolean&#xa;&#xa;Keeps log of request timestamps,&#xa;removes old entries" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="940" y="420" width="260" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Factory Pattern -->
+        <mxCell id="rateLimiterFactory" value="RateLimiterFactory&#xa;---&#xa;+ createRateLimiter(type, config): RateLimiter&#xa;&#xa;⭐ Factory Pattern&#xa;&#xa;Switch based on RateLimitType:&#xa;- TOKEN_BUCKET → TokenBucketRateLimiter&#xa;- FIXED_WINDOW → FixedWindowRateLimiter&#xa;- LEAKY_BUCKET → LeakyBucketRateLimiter&#xa;- SLIDING_WINDOW_LOG → SlidingWindowLogRateLimiter" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="360" y="220" width="380" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Service Layer -->
+        <mxCell id="rateLimiterService" value="RateLimiterService&#xa;---&#xa;- rateLimiters: Map&lt;UserTier, RateLimiter&gt;&#xa;---&#xa;+ RateLimiterService()&#xa;+ allowRequest(User): boolean&#xa;&#xa;Per-tier configuration:&#xa;- FREE: TokenBucket (10 req/60s)&#xa;- PREMIUM: FixedWindow (100 req/60s)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="800" y="220" width="300" height="160" as="geometry" />
+        </mxCell>
+        
+        <!-- Relationships -->
+        <!-- RateLimiter uses RateLimitConfig -->
+        <mxCell id="arrow1" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="rateLimiter" target="rateLimitConfig">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label1" value="has" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="155" y="185" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- RateLimiter uses RateLimitType -->
+        <mxCell id="arrow2" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="rateLimiter" target="rateLimitType">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="280" />
+              <mxPoint x="620" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Implementations extend RateLimiter -->
+        <mxCell id="arrow3" value="" style="endArrow=block;endFill=0;endSize=12;" edge="1" parent="1" source="tokenBucket" target="rateLimiter">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow4" value="" style="endArrow=block;endFill=0;endSize=12;" edge="1" parent="1" source="fixedWindow" target="rateLimiter">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="390" />
+              <mxPoint x="200" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow5" value="" style="endArrow=block;endFill=0;endSize=12;" edge="1" parent="1" source="leakyBucket" target="rateLimiter">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="390" />
+              <mxPoint x="220" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow6" value="" style="endArrow=block;endFill=0;endSize=12;" edge="1" parent="1" source="slidingWindowLog" target="rateLimiter">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1070" y="390" />
+              <mxPoint x="240" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Factory creates RateLimiter -->
+        <mxCell id="arrow7" value="creates" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="rateLimiterFactory" target="rateLimiter">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- RateLimiterService uses Factory -->
+        <mxCell id="arrow8" value="uses" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="rateLimiterService" target="rateLimiterFactory">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- RateLimiterService uses UserTier -->
+        <mxCell id="arrow9" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="rateLimiterService" target="userTier">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- RateLimiterService uses User -->
+        <mxCell id="arrow10" value="processes" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="rateLimiterService" target="user">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="200" />
+              <mxPoint x="390" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- User uses UserTier -->
+        <mxCell id="arrow11" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="user" target="userTier">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Factory uses RateLimitConfig -->
+        <mxCell id="arrow12" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="rateLimiterFactory" target="rateLimitConfig">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="200" />
+              <mxPoint x="150" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Design Patterns:&#xa;⭐ Strategy Pattern - Multiple rate limiting algorithms (TokenBucket, FixedWindow, LeakyBucket, SlidingWindowLog)&#xa;⭐ Factory Pattern - RateLimiterFactory creates limiters based on type&#xa;⭐ Template Method - Abstract RateLimiter with abstract allowRequest()&#xa;&#xa;Key Algorithms:&#xa;• Token Bucket: Refills tokens at constant rate&#xa;• Fixed Window: Resets counter at fixed time intervals&#xa;• Leaky Bucket: Processes requests at constant leak rate&#xa;• Sliding Window Log: Keeps timestamp log, removes old entries&#xa;&#xa;Per-Tier Limits:&#xa;• FREE: 10 requests / 60 seconds (TokenBucket)&#xa;• PREMIUM: 100 requests / 60 seconds (FixedWindow)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="610" width="600" height="210" as="geometry" />
+        </mxCell>
+        
+        <!-- Comparison Box -->
+        <mxCell id="comparison" value="Algorithm Comparison:&#xa;&#xa;Token Bucket: Bursty traffic OK, tokens accumulate&#xa;Fixed Window: Simple, but boundary burst issue&#xa;Leaky Bucket: Smooth traffic, no bursts&#xa;Sliding Window Log: Accurate, memory intensive&#xa;&#xa;Concurrency: All use ConcurrentHashMap + AtomicBoolean/synchronized" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="680" y="610" width="520" height="140" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

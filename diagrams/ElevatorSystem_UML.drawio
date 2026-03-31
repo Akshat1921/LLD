@@ -1,0 +1,198 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Elevator System" id="elevator-system">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Core Entities -->
+        <mxCell id="elevator" value="Elevator&#xa;---&#xa;- manager: ElevatorManager&#xa;- state: State&#xa;- currentFloor: int&#xa;- queue: Queue&lt;Integer&gt;&#xa;---&#xa;+ Elevator(floor, manager)&#xa;+ addToQueue(floor): void&#xa;+ processQueue(): void&#xa;+ setState(state): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="160" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="elevatorManager" value="ElevatorManager&#xa;---&#xa;- panels: List&lt;OuterPanel&gt;&#xa;- elevators: List&lt;Elevator&gt;&#xa;- strategy: ElevatorSelectionStrategy&#xa;- observers: List&lt;ElevatorObserver&gt;&#xa;---&#xa;+ ElevatorManager(strategy)&#xa;+ notifyObservers(Elevator): void&#xa;+ addToQueue(floor, direction): void&#xa;+ addElevator(Elevator): void&#xa;+ addPanels(OuterPanel): void&#xa;&#xa;⭐ Observer Pattern (Subject)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="40" width="280" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Enum -->
+        <mxCell id="direction" value="&lt;&lt;enum&gt;&gt;&#xa;Direction&#xa;---&#xa;UP&#xa;DOWN" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="680" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- State Pattern -->
+        <mxCell id="state" value="&lt;&lt;interface&gt;&gt;&#xa;State&#xa;---&#xa;+ moveUp(): void&#xa;+ moveDown(): void&#xa;+ stop(): void&#xa;&#xa;⭐ State Pattern" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="40" y="260" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="idleState" value="IdleState&#xa;---&#xa;- elevator: Elevator&#xa;---&#xa;+ moveUp(): void&#xa;+ moveDown(): void&#xa;+ stop(): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="180" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="moveUpState" value="MoveUpState&#xa;---&#xa;- elevator: Elevator&#xa;---&#xa;+ moveUp(): void&#xa;+ moveDown(): void&#xa;+ stop(): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="240" y="430" width="180" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="moveDownState" value="MoveDownState&#xa;---&#xa;- elevator: Elevator&#xa;---&#xa;+ moveUp(): void&#xa;+ moveDown(): void&#xa;+ stop(): void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="430" width="180" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Strategy Pattern -->
+        <mxCell id="selectionStrategy" value="&lt;&lt;interface&gt;&gt;&#xa;ElevatorSelectionStrategy&#xa;---&#xa;+ select(elevators, floor, direction): Elevator&#xa;&#xa;⭐ Strategy Pattern" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="680" y="260" width="300" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="nearestStrategy" value="NearestElevatorStrategy&#xa;---&#xa;+ select(elevators, floor, direction): Elevator&#xa;&#xa;Logic: Find elevator with min distance" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="680" y="410" width="280" height="90" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="loadBalancingStrategy" value="LoadBalancingSelectionStrategy&#xa;---&#xa;- random: Random&#xa;---&#xa;+ select(elevators, floor, direction): Elevator&#xa;&#xa;Logic: Random selection for load balancing" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="410" width="300" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Observer Pattern -->
+        <mxCell id="elevatorObserver" value="&lt;&lt;interface&gt;&gt;&#xa;ElevatorObserver&#xa;---&#xa;+ update(Elevator): void&#xa;&#xa;⭐ Observer Pattern" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="680" y="570" width="200" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="outerPanel" value="OuterPanel&#xa;---&#xa;- manager: ElevatorManager&#xa;- floor: int&#xa;---&#xa;+ update(Elevator): void&#xa;+ requestElevator(Direction): void&#xa;&#xa;Observer + UI Component" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="920" y="570" width="240" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Relationships -->
+        <!-- Elevator has State -->
+        <mxCell id="arrow1" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="elevator" target="state">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="140" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label1" value="has" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="145" y="215" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- State implementations -->
+        <mxCell id="arrow2" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="idleState" target="state">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="130" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="moveUpState" target="state">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="400" />
+              <mxPoint x="180" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow4" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="moveDownState" target="state">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="400" />
+              <mxPoint x="200" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- ElevatorManager has Strategy -->
+        <mxCell id="arrow5" value="" style="endArrow=diamondThin;endFill=0;endSize=12;" edge="1" parent="1" source="elevatorManager" target="selectionStrategy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="140" />
+              <mxPoint x="780" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Strategy implementations -->
+        <mxCell id="arrow6" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="nearestStrategy" target="selectionStrategy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="820" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow7" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="loadBalancingStrategy" target="selectionStrategy">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="380" />
+              <mxPoint x="900" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- ElevatorManager manages Elevators -->
+        <mxCell id="arrow8" value="manages" style="endArrow=open;endSize=12;" edge="1" parent="1" source="elevatorManager" target="elevator">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- ElevatorManager notifies Observers -->
+        <mxCell id="arrow9" value="notifies" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="elevatorManager" target="elevatorObserver">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="260" />
+              <mxPoint x="480" y="540" />
+              <mxPoint x="780" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- OuterPanel implements Observer -->
+        <mxCell id="arrow10" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;" edge="1" parent="1" source="outerPanel" target="elevatorObserver">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- OuterPanel uses ElevatorManager -->
+        <mxCell id="arrow11" value="requests" style="endArrow=open;dashed=1;endSize=12;" edge="1" parent="1" source="outerPanel" target="elevatorManager">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1040" y="540" />
+              <mxPoint x="640" y="540" />
+              <mxPoint x="640" y="240" />
+              <mxPoint x="580" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Elevator has reference to Manager -->
+        <mxCell id="arrow12" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="elevator" target="elevatorManager">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- OuterPanel uses Direction -->
+        <mxCell id="arrow13" value="" style="endArrow=open;endSize=12;" edge="1" parent="1" source="outerPanel" target="direction">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1040" y="540" />
+              <mxPoint x="740" y="540" />
+              <mxPoint x="740" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Design Patterns:&#xa;⭐ State Pattern - Elevator states (Idle, MoveUp, MoveDown)&#xa;⭐ Strategy Pattern - Elevator selection (Nearest, LoadBalancing)&#xa;⭐ Observer Pattern - ElevatorManager notifies OuterPanels&#xa;&#xa;Key Flow:&#xa;1. OuterPanel.requestElevator(direction)&#xa;2. Manager uses Strategy to select elevator&#xa;3. Elevator processes queue with State transitions&#xa;4. Manager notifies all Observers (OuterPanels)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="580" width="380" height="150" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
